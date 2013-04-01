@@ -24,11 +24,13 @@ describe Module do
     let(:restaurant) do
       class Restaurant
         delegate :name, to: :place
+        delegate :latitude, to: :place, with_prefix: false
       end
 
       Restaurant.new
     end
 
     it {expect(restaurant.place_name).to eq "Argentina"}
+    it {expect(restaurant.latitude).to eq(-34)}
   end
 end
