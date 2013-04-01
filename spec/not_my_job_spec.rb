@@ -30,7 +30,29 @@ describe Module do
       Restaurant.new
     end
 
+    it {expect(restaurant.respond_to? :place_name).to be_true }
+    it {expect(restaurant.respond_to? :latitude).to be_true }
+
     it {expect(restaurant.place_name).to eq "Argentina"}
     it {expect(restaurant.latitude).to eq(-34)}
   end
+
+  context "Delegate multiple methods" do
+    let(:restaurant) do
+      class Restaurant
+        delegate :name, :latitude, :longitude, to: :place
+      end
+
+      Restaurant.new
+    end
+
+    it {expect(restaurant.respond_to? :place_name).to be_true }
+    it {expect(restaurant.respond_to? :place_latitude).to be_true }
+    it {expect(restaurant.respond_to? :place_longitude).to be_true }
+
+    it {expect(restaurant.place_name).to eq "Argentina"}
+    it {expect(restaurant.place_latitude).to eq(-34)}
+    it {expect(restaurant.place_longitude).to eq(-58)}
+  end
+
 end
