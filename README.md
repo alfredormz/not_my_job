@@ -42,6 +42,7 @@ class Restaurant
   extend NotMyJob
   
   delegate :name, to: :cuisine
+  delegate :chef, to: :cuisine, with_prefix: false
   
   def initialize(cuisine)
     @cuisine = cuisine
@@ -52,7 +53,7 @@ cuisine    = Cuisine.new("Italian", "Mario")
 restaurant = Restauran.new(cuisine)
 
 restaurant.cuisine_name #=> "Italian"
-restaurant.cuisine_chef #=> raise a "NoMethodError"
+restaurant.chef         #=> "Mario"
 ```
 
 Multiple methods delegation:
