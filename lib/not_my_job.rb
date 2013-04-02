@@ -1,10 +1,12 @@
 module NotMyJob
+
   def self.included(base)
     base.extend(ClassMethods)
   end
 
   module ClassMethods
-    def delegate(*methods, options)
+
+    def delegate(*methods, options, &block)
       to = options.fetch(:to)
       with_prefix = options.fetch(:with_prefix) { true }
 
@@ -15,9 +17,15 @@ module NotMyJob
 
         define_method method_name do
           object = instance_variable_get "@#{to}"
-          object.public_send method
+          begin
+            object.public_send method
+          rescue NoMethodError
+            block_given? ? yield : raise
+          end
         end
       end
     end
+
   end
+
 end

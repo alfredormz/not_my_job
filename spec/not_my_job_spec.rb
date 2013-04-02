@@ -55,4 +55,28 @@ describe Module do
     it {expect(restaurant.place_longitude).to eq(-58)}
   end
 
+  context "The delegate object is nil" do
+    let(:restaurant) do
+      class Restaurant
+        delegate :name, to: :some_object
+      end
+
+      Restaurant.new
+    end
+    it {expect{restaurant.some_object_name}.to raise_error(NoMethodError)}
+  end
+
+  context "The delegate object is nil but a block is provided" do
+    let(:restaurant) do
+      class Restaurant
+        delegate :name, to: :some_object do
+          "No data found"
+        end
+      end
+
+      Restaurant.new
+    end
+    it {expect(restaurant.some_object_name).to eq "No data found"}
+  end
+
 end
