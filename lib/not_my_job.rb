@@ -17,14 +17,13 @@ module NotMyJob
       end
 
       with_prefix = options.fetch(:with_prefix, true)
-
       method_prefix = with_prefix ? "#{to}_" : ""
 
       methods.each do |method|
         method_name = "#{method_prefix}#{method}"
 
         define_method method_name do
-          object = instance_variable_get "@#{to}"
+          object = instance_variable_get("@#{to}") || self.send(to)
           begin
             object.public_send method
           rescue NoMethodError
