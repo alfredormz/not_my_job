@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'ostruct'
 
 describe Module do
 
@@ -12,11 +13,15 @@ describe Module do
   end
 
   class Restaurant
-    include NotMyJob
+    extend NotMyJob
 
     attr_accessor :place
     def initialize(place=nil)
       @place = place || Place.new("Argentina", -34, -58)
+    end
+
+    def category
+      OpenStruct.new(name: "Italian")
     end
   end
 
@@ -25,6 +30,7 @@ describe Module do
       class Restaurant
         delegate :name, to: :place
         delegate :latitude, to: :place, with_prefix: false
+        delegate :name, to: :category
       end
 
       Restaurant.new
@@ -32,9 +38,11 @@ describe Module do
 
     it {expect(restaurant.respond_to? :place_name).to be_true }
     it {expect(restaurant.respond_to? :latitude).to be_true }
+    it {expect(restaurant.respond_to? :category_name).to be_true }
 
     it {expect(restaurant.place_name).to eq "Argentina"}
     it {expect(restaurant.latitude).to eq(-34)}
+    it {expect(restaurant.category_name).to eq "Italian" }
   end
 
   context "Delegate multiple methods" do
