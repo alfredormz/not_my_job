@@ -13,7 +13,7 @@ module NotMyJob
       end
 
       to = options.fetch(:to) { raise ArgumentError, "The :to option is required." }
-      with_prefix = options.fetch(:with_prefix) { true }
+      with_prefix = options.fetch(:with_prefix, true)
 
       method_prefix = with_prefix ? "#{to}_" : ""
 
