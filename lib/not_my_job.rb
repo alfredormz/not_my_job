@@ -7,7 +7,12 @@ module NotMyJob
   module ClassMethods
 
     def delegate(*methods, options, &block)
-      to = options.fetch(:to)
+
+      unless options.is_a? Hash
+        raise ArgumentError, "At least one method and the :to option are required."
+      end
+
+      to = options.fetch(:to) { raise ArgumentError, "The :to option is required." }
       with_prefix = options.fetch(:with_prefix) { true }
 
       method_prefix = with_prefix ? "#{to}_" : ""
