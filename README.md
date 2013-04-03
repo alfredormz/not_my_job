@@ -78,7 +78,7 @@ end
 restaurant.place_name #=> "Argentina"
 ```
 
-If the delegate object is nil and a block is provided:
+If the delegate object is nil and a block is specified:
 ```ruby
 class Restaurant
   extend NotMyJob
