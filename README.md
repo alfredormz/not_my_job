@@ -1,6 +1,6 @@
 # (That's) Not My Job
 
-Also known as EmpleadoPublico ;) provides a delegate class method to easily expose contained object's methods as your own.
+Also known as Empleado Público ;) provides a delegate class method to easily expose contained object's methods as your own.
 
 ## Installation
 
@@ -23,7 +23,7 @@ $ gem install not_my_job
 ```
 In order to access the delegate object's methods, NotMyJob creates instance methods for each one specified method.
 
-If the delegate object is nil, there are several options: If no block is provided, it will raise an NoMethodError exception; if the optional code block is specified, then that will be run and its result returned.
+If the delegate object is nil, there are several options: If no block is provided, it will raise a NoMethodError exception; if the optional code block is specified you may return an alternate value, or to take some arbitrary action.
 
 ## Examples
 
@@ -67,7 +67,7 @@ restaurant.cuisine_name #=> "Italian"
 restaurant.cuisine_chef #=> "Mario"
 ```
 
-ActiveRecord Associations:
+With ActiveRecord associations:
 ```ruby
 class Restaurant < ActiveRecord::Base
   extend NotMyJob
