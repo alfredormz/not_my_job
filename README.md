@@ -2,7 +2,7 @@
 
 Also known as Empleado Público ;) provides a delegate class method to easily expose contained object's methods as your own.
 
-## Installation
+## Quick install
 
 Add this line to your application's Gemfile:
 ```
